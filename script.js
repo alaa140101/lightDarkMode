@@ -18,8 +18,8 @@ function toggleMode () {
   } else {
     mode = ['light', 'rgb(255 255 255 / 50%)', 'rgb(0 0 0 / 50%)',  'fa-moon', 'fa-sun',];
   }
-
   document.documentElement.setAttribute('data-theme', mode[0]);
+  localStorage.setItem('theme', mode[0]);
   nav.style.backgroundColor = mode[1];
   textBox.style.backgroundColor = mode[2];
   toggleIcon.children[0].textContent =  mode[0] + ' Mode';
@@ -31,3 +31,14 @@ function toggleMode () {
 
 // Event Listener
 toggleSwitch.addEventListener('change', toggleMode);
+
+// Check Local Storage For Theme
+const currentTheme = localStorage.getItem('theme');
+if (currentTheme) {
+  document.documentElement.setAttribute('data-theme', currentTheme);
+
+  if (currentTheme === 'dark') {
+    toggleSwitch.checked = true;
+    toggleMode();
+  }
+}
